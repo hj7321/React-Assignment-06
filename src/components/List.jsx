@@ -2,6 +2,7 @@ import { memo } from "react";
 
 const List = ({ items }) => {
   console.log("List component rendered");
+
   return (
     <ul>
       {items.map((item, index) => (
