@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { useEffect } from "react";
 import List from "./components/List";
 
@@ -9,13 +9,17 @@ const App = () => {
   const [input, setInput] = useState("");
   const [items, setItems] = useState(["Item 1", "Item 2", "Item 3"]);
 
+  const inputRef = useRef(input);
+  inputRef.current = input;
+
   const handleInputChange = (event) => {
     setInput(event.target.value);
   };
 
-  const addItem = () => {
-    setItems((prevItems) => [...prevItems, input]);
-  };
+  const addItem = useCallback(() => {
+    setItems((prevItems) => [...prevItems, inputRef.current]);
+    setInput("");
+  }, []);
 
   useEffect(() => {
     console.log("Add Item 버튼 클릭 시에는 로그가 찍히지 않아야 합니다!");
